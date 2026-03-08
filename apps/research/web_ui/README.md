@@ -1,4 +1,4 @@
-# research_web_ui
+# web_ui
 
 연구용 웹 UI 프로젝트용 폴더입니다.
 

@@ -4,8 +4,12 @@
 
 ## 최상위 구조
 
-- `apps/research_bot/`: 연구용 백엔드 봇 프로젝트 영역
-- `apps/research_web_ui/`: 연구용 웹 UI 프로젝트 영역
+- `apps/research/`: 연구용 애플리케이션 묶음
+- `apps/research/bot/`: 연구용 백엔드 봇 프로젝트 영역
+- `apps/research/web_ui/`: 연구용 웹 UI 프로젝트 영역
+- `apps/trading/`: 실거래용 애플리케이션 묶음
+- `apps/trading/engine/`: 실거래 엔진 프로젝트 영역
+- `apps/trading/web_ui/`: 실거래 웹 UI 프로젝트 영역
 - `prototypes/orb-research-adapter/`: 1차 ORB 백테스트 스캐폴드 프로토타입
 - `docs/research/`: 전략, 백테스트, 트레이딩 연구 문서
 - `docs/context/`: 인수인계나 세션 컨텍스트 문서
@@ -13,5 +17,5 @@
 
 ## 현재 의도
 
-연구용 백엔드 봇과 연구용 웹 UI의 최종 아키텍처는 아직 열어둔 상태입니다.
-지금은 실제 서비스 구조를 다음 단계에서 설계할 수 있도록 폴더 경계만 먼저 잡아둔 상태입니다.
+`apps` 아래에서 `research`와 `trading`을 각각 별도 컨텍스트로 나눴습니다.
+현재는 연구용 프로젝트만 실제로 존재하고, 실거래 쪽은 이후 확장을 위한 자리만 먼저 잡아둔 상태입니다.
