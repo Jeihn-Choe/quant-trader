@@ -1,0 +1,16 @@
+# Fill in the CSV files before running the CLI.
+
+[files]
+minute_bar_csv = "../../../data/input/minute_bars.csv"
+tick_csv = ""
+output_csv = "../../../data/output/orb_breakout_results.csv"
+
+[session]
+market_open = "09:00"
+analysis_cutoff = "10:00"
+
+[strategy]
+min_gap_pct = 0.00
+orb_windows = [3, 5, 10, 15]
+confirmation_windows = [10, 30, 60]
+breakout_buffer = 0.0
