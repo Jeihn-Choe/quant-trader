@@ -138,6 +138,15 @@ class KisClient:
         payload = response.json()
         if not isinstance(payload, dict):
             raise KisClientError("한국투자증권 API 응답 형식이 예상과 다릅니다.")
+        rt_cd = str(payload.get("rt_cd", "")).strip()
+        if rt_cd and rt_cd != "0":
+            code = str(payload.get("msg_cd", "")).strip()
+            detail = str(payload.get("msg1", "")).strip()
+            if code and detail:
+                raise KisClientError(f"한국투자증권 API 오류입니다. msg_cd={code}, msg1={detail}")
+            if detail:
+                raise KisClientError(f"한국투자증권 API 오류입니다. msg1={detail}")
+            raise KisClientError("한국투자증권 API가 실패 응답을 반환했습니다.")
         return payload
 
     def _issue_access_token(self) -> KisTokenState:

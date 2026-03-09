@@ -35,6 +35,16 @@ export function formatDate(value: string | null | undefined) {
   }).format(new Date(normalized));
 }
 
+export function formatTime(value: string | null | undefined) {
+  if (!value) {
+    return "-";
+  }
+  return new Intl.DateTimeFormat("ko-KR", {
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(new Date(value));
+}
+
 export function formatInputDate(value: Date) {
   const year = value.getFullYear();
   const month = `${value.getMonth() + 1}`.padStart(2, "0");

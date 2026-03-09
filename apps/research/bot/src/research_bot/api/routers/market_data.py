@@ -5,25 +5,109 @@ from datetime import date
 from fastapi import APIRouter, HTTPException, Request
 
 from research_bot.api.schemas.market_data import (
-    BuildOpeningBarsRequest,
-    BuildOpeningBarsResponse,
+    CollectAllMarketDataRequest,
+    CollectAllMarketDataResponse,
+    CollectMarketOpenSnapshotRequest,
     CollectHistoricalMinuteBarsRequest,
     CollectResponse,
-    CollectSessionReferenceRequest,
+    MarketDataDailySummaryResponse,
+    MarketDataSymbolSummaryResponse,
     MarketDataOverviewResponse,
+    MinuteBarResponse,
     ProviderSessionResponse,
-    SeedMockDataRequest,
-    SeedMockDataResponse,
 )
 from research_bot.application.dto.market_data_dto import (
-    BuildOpeningBarsCommand,
+    CollectMarketOpenSnapshotCommand,
     CollectHistoricalMinuteBarsCommand,
-    CollectSessionReferenceCommand,
 )
 from research_bot.infrastructure.providers.kis_client import KisClientError
 
 
 router = APIRouter(prefix="/market-data", tags=["market-data"])
+MAX_BACKFILL_DAYS = 99
+
+
+@router.get("/daily-grid", response_model=list[MarketDataDailySummaryResponse])
+def get_daily_market_data_grid(
+    request: Request,
+    date_from: str,
+    date_to: str,
+    symbols: str | None = None,
+) -> list[MarketDataDailySummaryResponse]:
+    resolved_date_from, resolved_date_to = _validate_backfill_range(date_from, date_to)
+    symbol_list = [value.strip() for value in (symbols or "").split(",") if value.strip()]
+    rows = request.app.state.container.market_data_repository.list_daily_market_data_summary(
+        date_from=resolved_date_from,
+        date_to=resolved_date_to,
+        symbols=symbol_list or None,
+    )
+    return [
+        MarketDataDailySummaryResponse(
+            trade_date=row.trade_date.isoformat(),
+            symbol_count=row.symbol_count,
+            historical_bar_count=row.historical_bar_count,
+            market_open_snapshot_count=row.market_open_snapshot_count,
+            preview_symbols=row.preview_symbols,
+        )
+        for row in rows
+    ]
+
+
+@router.get("/day-symbols", response_model=list[MarketDataSymbolSummaryResponse])
+def get_day_symbol_grid(
+    request: Request,
+    trade_date: str,
+    symbols: str | None = None,
+) -> list[MarketDataSymbolSummaryResponse]:
+    resolved_trade_date = _parse_iso_date(trade_date)
+    symbol_list = [value.strip() for value in (symbols or "").split(",") if value.strip()]
+    rows = request.app.state.container.market_data_repository.list_symbol_market_data_summary(
+        trade_date=resolved_trade_date,
+        symbols=symbol_list or None,
+    )
+    return [
+        MarketDataSymbolSummaryResponse(
+            trade_date=row.trade_date.isoformat(),
+            symbol=row.symbol,
+            symbol_name=row.symbol_name,
+            minute_bar_count=row.minute_bar_count,
+            session_open=row.session_open,
+            session_high=row.session_high,
+            session_low=row.session_low,
+            session_close=row.session_close,
+            total_volume=row.total_volume,
+            gap_pct=row.gap_pct,
+        )
+        for row in rows
+    ]
+
+
+@router.get("/day-symbols/{symbol}/minute-bars", response_model=list[MinuteBarResponse])
+def get_symbol_minute_bars(
+    request: Request,
+    symbol: str,
+    trade_date: str,
+) -> list[MinuteBarResponse]:
+    resolved_trade_date = _parse_iso_date(trade_date)
+    rows = request.app.state.container.market_data_repository.list_historical_minute_bars(
+        date_from=resolved_trade_date,
+        date_to=resolved_trade_date,
+        symbols=[symbol],
+    )
+    return [
+        MinuteBarResponse(
+            symbol=row.symbol,
+            symbol_name=row.symbol_name,
+            trade_date=row.trade_date.isoformat(),
+            minute_ts=row.minute_ts.isoformat(),
+            open=row.open,
+            high=row.high,
+            low=row.low,
+            close=row.close,
+            volume=row.volume,
+        )
+        for row in rows
+    ]
 
 
 @router.get("/overview", response_model=MarketDataOverviewResponse)
@@ -31,13 +115,10 @@ def get_market_data_overview(request: Request) -> MarketDataOverviewResponse:
     overview = request.app.state.container.market_data_repository.get_market_data_overview()
     return MarketDataOverviewResponse(
         historical_bar_count=overview.historical_bar_count,
-        opening_bar_count=overview.opening_bar_count,
-        session_reference_count=overview.session_reference_count,
+        market_open_snapshot_count=overview.market_open_snapshot_count,
         symbol_count=overview.symbol_count,
         historical_date_min=_date_text(overview.historical_date_min),
         historical_date_max=_date_text(overview.historical_date_max),
-        opening_date_min=_date_text(overview.opening_date_min),
-        opening_date_max=_date_text(overview.opening_date_max),
         available_symbols=overview.available_symbols,
     )
 
@@ -83,123 +164,147 @@ def collect_historical_minute_bars(
     payload: CollectHistoricalMinuteBarsRequest,
     request: Request,
 ) -> CollectResponse:
+    date_from, date_to = _validate_backfill_range(payload.date_from, payload.date_to)
     use_case = request.app.state.container.collect_historical_minute_bars_use_case
     try:
         result = use_case.execute(
             CollectHistoricalMinuteBarsCommand(
-                date_from=date.fromisoformat(payload.date_from),
-                date_to=date.fromisoformat(payload.date_to),
+                date_from=date_from,
+                date_to=date_to,
                 symbols=payload.symbols,
                 replace_existing=payload.replace_existing,
             )
         )
+    except KisClientError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
     except NotImplementedError as error:
         raise HTTPException(status_code=501, detail=str(error)) from error
     return CollectResponse(
-        message="과거 1분봉 적재가 완료되었습니다.",
+        message=(
+            "같은 범위의 1분봉이 이미 로컬 DB에 있어 API 호출을 건너뛰었습니다."
+            if result.skipped
+            else "과거 1분봉 적재가 완료되었습니다."
+        ),
         provider=result.provider,
         symbols=result.symbols,
         date_from=result.date_from.isoformat(),
         date_to=result.date_to.isoformat(),
         rows_written=result.rows_written,
+        skipped=result.skipped,
     )
 
 
-@router.post("/session-references", response_model=CollectResponse)
-def collect_session_references(
-    payload: CollectSessionReferenceRequest,
+@router.post("/market-open-snapshots", response_model=CollectResponse)
+def collect_market_open_snapshots(
+    payload: CollectMarketOpenSnapshotRequest,
     request: Request,
 ) -> CollectResponse:
-    use_case = request.app.state.container.collect_session_reference_use_case
+    date_from, date_to = _validate_backfill_range(payload.date_from, payload.date_to)
+    use_case = request.app.state.container.collect_market_open_snapshot_use_case
     try:
         result = use_case.execute(
-            CollectSessionReferenceCommand(
-                date_from=date.fromisoformat(payload.date_from),
-                date_to=date.fromisoformat(payload.date_to),
+            CollectMarketOpenSnapshotCommand(
+                date_from=date_from,
+                date_to=date_to,
                 symbols=payload.symbols,
                 replace_existing=payload.replace_existing,
             )
         )
+    except KisClientError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
     except NotImplementedError as error:
         raise HTTPException(status_code=501, detail=str(error)) from error
     return CollectResponse(
-        message="세션 기준값 적재가 완료되었습니다.",
+        message=(
+            "같은 범위의 장 시작 스냅샷이 이미 로컬 DB에 있어 API 호출을 건너뛰었습니다."
+            if result.skipped
+            else "장 시작 스냅샷 적재가 완료되었습니다."
+        ),
         provider=result.provider,
         symbols=result.symbols,
         date_from=result.date_from.isoformat(),
         date_to=result.date_to.isoformat(),
         rows_written=result.rows_written,
+        skipped=result.skipped,
     )
 
 
-@router.post("/opening-bars/build", response_model=BuildOpeningBarsResponse)
-def build_opening_bars(
-    payload: BuildOpeningBarsRequest,
+@router.post("/full-fetch", response_model=CollectAllMarketDataResponse)
+def collect_all_market_data(
+    payload: CollectAllMarketDataRequest,
     request: Request,
-) -> BuildOpeningBarsResponse:
-    use_case = request.app.state.container.build_opening_bars_use_case
-    result = use_case.execute(
-        BuildOpeningBarsCommand(
-            date_from=date.fromisoformat(payload.date_from),
-            date_to=date.fromisoformat(payload.date_to),
-            symbols=payload.symbols,
-            replace_existing=payload.replace_existing,
-        )
-    )
-    return BuildOpeningBarsResponse(
-        message="오프닝 1시간 1분봉 생성이 완료되었습니다.",
-        symbols=result.symbols,
-        date_from=result.date_from.isoformat(),
-        date_to=result.date_to.isoformat(),
-        rows_written=result.rows_written,
-    )
-
-
-@router.post("/mock/seed", response_model=SeedMockDataResponse)
-def seed_mock_data(payload: SeedMockDataRequest, request: Request) -> SeedMockDataResponse:
+) -> CollectAllMarketDataResponse:
+    date_from, date_to = _validate_backfill_range(payload.date_from, payload.date_to)
     try:
         historical_result = (
             request.app.state.container.collect_historical_minute_bars_use_case.execute(
                 CollectHistoricalMinuteBarsCommand(
-                    date_from=date.fromisoformat(payload.date_from),
-                    date_to=date.fromisoformat(payload.date_to),
+                    date_from=date_from,
+                    date_to=date_to,
                     symbols=payload.symbols,
                     replace_existing=payload.replace_existing,
                 )
             )
         )
-        session_result = request.app.state.container.collect_session_reference_use_case.execute(
-            CollectSessionReferenceCommand(
-                date_from=date.fromisoformat(payload.date_from),
-                date_to=date.fromisoformat(payload.date_to),
-                symbols=payload.symbols,
-                replace_existing=payload.replace_existing,
+        market_open_snapshot_result = (
+            request.app.state.container.collect_market_open_snapshot_use_case.execute(
+                CollectMarketOpenSnapshotCommand(
+                    date_from=date_from,
+                    date_to=date_to,
+                    symbols=payload.symbols,
+                    replace_existing=payload.replace_existing,
+                )
             )
         )
+    except KisClientError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
     except NotImplementedError as error:
         raise HTTPException(status_code=501, detail=str(error)) from error
-    opening_result = request.app.state.container.build_opening_bars_use_case.execute(
-        BuildOpeningBarsCommand(
-            date_from=date.fromisoformat(payload.date_from),
-            date_to=date.fromisoformat(payload.date_to),
-            symbols=payload.symbols,
-            replace_existing=payload.replace_existing,
-        )
-    )
-    return SeedMockDataResponse(
-        message="모의 데이터 전체 적재가 완료되었습니다.",
+    return CollectAllMarketDataResponse(
+        message=_full_fetch_message(
+            historical_skipped=historical_result.skipped,
+            snapshot_skipped=market_open_snapshot_result.skipped,
+        ),
         provider=historical_result.provider,
         symbols=historical_result.symbols,
         date_from=historical_result.date_from.isoformat(),
         date_to=historical_result.date_to.isoformat(),
         historical_minute_rows=historical_result.rows_written,
-        session_reference_rows=session_result.rows_written,
-        opening_bar_rows=opening_result.rows_written,
+        market_open_snapshot_rows=market_open_snapshot_result.rows_written,
+        historical_minute_skipped=historical_result.skipped,
+        market_open_snapshot_skipped=market_open_snapshot_result.skipped,
     )
 
 
 def _date_text(value: date | None) -> str | None:
     return value.isoformat() if value else None
+
+
+def _validate_backfill_range(date_from_text: str, date_to_text: str) -> tuple[date, date]:
+    date_from = _parse_iso_date(date_from_text)
+    date_to = _parse_iso_date(date_to_text)
+    if date_from > date_to:
+        raise HTTPException(status_code=400, detail="시작일은 종료일보다 늦을 수 없습니다.")
+    range_days = (date_to - date_from).days + 1
+    if range_days > MAX_BACKFILL_DAYS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"백필 기간은 최대 {MAX_BACKFILL_DAYS}일까지만 요청할 수 있습니다.",
+        )
+    return date_from, date_to
+
+
+def _parse_iso_date(value: str) -> date:
+    try:
+        return date.fromisoformat(value)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail="날짜 형식이 올바르지 않습니다.") from error
 
 
 def _map_provider_session(status, message: str | None = None) -> ProviderSessionResponse:
@@ -213,3 +318,13 @@ def _map_provider_session(status, message: str | None = None) -> ProviderSession
         ),
         message=message or status.message,
     )
+
+
+def _full_fetch_message(historical_skipped: bool, snapshot_skipped: bool) -> str:
+    if historical_skipped and snapshot_skipped:
+        return "같은 범위 데이터가 이미 로컬 DB에 있어 API 호출을 건너뛰었습니다."
+    if historical_skipped:
+        return "1분봉은 로컬 DB를 재사용했고, 장 시작 스냅샷만 새로 조회했습니다."
+    if snapshot_skipped:
+        return "장 시작 스냅샷은 로컬 DB를 재사용했고, 1분봉만 새로 조회했습니다."
+    return "전체 데이터 조회가 완료되었습니다."

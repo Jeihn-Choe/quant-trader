@@ -39,6 +39,7 @@ class Settings(BaseSettings):
     kis_app_secret: str = ""
     kis_api_timeout_seconds: float = 15.0
     kis_token_refresh_buffer_seconds: int = 300
+    kis_universe_markets: str = "KOSPI,KOSDAQ"
 
     @field_validator("duckdb_path", mode="before")
     @classmethod
@@ -69,6 +70,10 @@ class Settings(BaseSettings):
     @property
     def cors_origin_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+
+    @property
+    def kis_universe_market_list(self) -> list[str]:
+        return [market.strip().upper() for market in self.kis_universe_markets.split(",") if market.strip()]
 
 
 def _parse_time(value: str) -> time:

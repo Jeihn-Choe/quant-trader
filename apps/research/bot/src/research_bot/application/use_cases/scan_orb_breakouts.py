@@ -29,27 +29,39 @@ class ScanOrbBreakoutsUseCase:
 
     def execute(self, command: OrbScanCommand) -> OrbScanReport:
         symbols = command.symbols or None
-        bars = self.market_data_repository.list_opening_bars(
+        bars = self.market_data_repository.list_historical_minute_bars(
             date_from=command.date_from,
             date_to=command.date_to,
             symbols=symbols,
         )
-        references = self.market_data_repository.list_session_references(
+        market_open_snapshots = self.market_data_repository.list_market_open_snapshots(
             date_from=command.date_from,
             date_to=command.date_to,
             symbols=symbols,
         )
 
-        sessions = _group_bars_by_session(bars)
-        reference_map = {(row.symbol, row.trade_date): row for row in references}
+        scan_bars = [
+            bar
+            for bar in bars
+            if self.market_open <= bar.minute_ts.time() <= self.opening_cutoff
+        ]
+        sessions = _group_bars_by_session(scan_bars)
+        market_open_snapshot_map = {
+            (row.symbol, row.trade_date): row for row in market_open_snapshots
+        }
         total_sessions = len(sessions)
         gap_up_sessions = 0
         rows: list[OrbScanRecord] = []
 
         for key in sorted(sessions.keys()):
             session_bars = sessions[key]
-            reference = reference_map.get(key)
-            gap_pct = reference.gap_pct if reference else None
+            market_open_snapshot = market_open_snapshot_map.get(key)
+            symbol_name = (
+                market_open_snapshot.symbol_name
+                if market_open_snapshot and market_open_snapshot.symbol_name
+                else session_bars[0].symbol_name
+            )
+            gap_pct = market_open_snapshot.gap_pct if market_open_snapshot else None
             gap_up = is_gap_up(gap_pct, command.gap_threshold_pct)
             if gap_up:
                 gap_up_sessions += 1
@@ -75,9 +87,14 @@ class ScanOrbBreakoutsUseCase:
             rows.append(
                 OrbScanRecord(
                     symbol=key[0],
+                    symbol_name=symbol_name,
                     trade_date=key[1],
-                    prev_close=reference.prev_close if reference else None,
-                    session_open=reference.session_open if reference else None,
+                    prev_close=market_open_snapshot.prev_close if market_open_snapshot else None,
+                    market_open_price=(
+                        market_open_snapshot.market_open_price
+                        if market_open_snapshot
+                        else None
+                    ),
                     gap_pct=gap_pct,
                     gap_up=gap_up,
                     orb_window_minutes=command.orb_window_minutes,

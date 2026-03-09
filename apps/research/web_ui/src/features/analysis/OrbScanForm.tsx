@@ -30,7 +30,7 @@ export function OrbScanForm({ onCompleted }: OrbScanFormProps) {
   const [gapMode, setGapMode] = useState<"all" | "gap_up_only">("all");
   const [gapThresholdPct, setGapThresholdPct] = useState(0);
   const [symbolsText, setSymbolsText] = useState("");
-  const [statusMessage, setStatusMessage] = useState("저장된 오프닝 1분봉 기준으로 ORB 스캔을 실행합니다.");
+  const [statusMessage, setStatusMessage] = useState("저장된 1분봉 원천 데이터 기준으로 ORB 스캔을 실행합니다.");
 
   const scanMutation = useMutation({
     mutationFn: (payload: OrbScanRequest) => scanOrbBreakouts(payload),

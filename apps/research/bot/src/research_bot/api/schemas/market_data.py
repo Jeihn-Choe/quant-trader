@@ -13,15 +13,11 @@ class CollectHistoricalMinuteBarsRequest(DateRangeRequest):
     replace_existing: bool = True
 
 
-class CollectSessionReferenceRequest(DateRangeRequest):
+class CollectMarketOpenSnapshotRequest(DateRangeRequest):
     replace_existing: bool = True
 
 
-class BuildOpeningBarsRequest(DateRangeRequest):
-    replace_existing: bool = True
-
-
-class SeedMockDataRequest(DateRangeRequest):
+class CollectAllMarketDataRequest(DateRangeRequest):
     replace_existing: bool = True
 
 
@@ -32,37 +28,61 @@ class CollectResponse(BaseModel):
     date_from: str
     date_to: str
     rows_written: int
+    skipped: bool = False
 
 
-class BuildOpeningBarsResponse(BaseModel):
-    message: str
-    symbols: list[str]
-    date_from: str
-    date_to: str
-    rows_written: int
-
-
-class SeedMockDataResponse(BaseModel):
+class CollectAllMarketDataResponse(BaseModel):
     message: str
     provider: str
     symbols: list[str]
     date_from: str
     date_to: str
     historical_minute_rows: int
-    session_reference_rows: int
-    opening_bar_rows: int
+    market_open_snapshot_rows: int
+    historical_minute_skipped: bool = False
+    market_open_snapshot_skipped: bool = False
 
 
 class MarketDataOverviewResponse(BaseModel):
     historical_bar_count: int
-    opening_bar_count: int
-    session_reference_count: int
+    market_open_snapshot_count: int
     symbol_count: int
     historical_date_min: str | None
     historical_date_max: str | None
-    opening_date_min: str | None
-    opening_date_max: str | None
     available_symbols: list[str]
+
+
+class MarketDataDailySummaryResponse(BaseModel):
+    trade_date: str
+    symbol_count: int
+    historical_bar_count: int
+    market_open_snapshot_count: int
+    preview_symbols: list[str]
+
+
+class MarketDataSymbolSummaryResponse(BaseModel):
+    trade_date: str
+    symbol: str
+    symbol_name: str | None
+    minute_bar_count: int
+    session_open: float | None
+    session_high: float | None
+    session_low: float | None
+    session_close: float | None
+    total_volume: float | None
+    gap_pct: float | None
+
+
+class MinuteBarResponse(BaseModel):
+    symbol: str
+    symbol_name: str | None
+    trade_date: str
+    minute_ts: str
+    open: float
+    high: float
+    low: float
+    close: float
+    volume: float
 
 
 class ProviderSessionResponse(BaseModel):

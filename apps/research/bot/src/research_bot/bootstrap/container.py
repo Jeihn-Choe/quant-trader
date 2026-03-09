@@ -1,19 +1,20 @@
 from __future__ import annotations
 
 from functools import cached_property
-
-from research_bot.application.use_cases.build_opening_bars import BuildOpeningBarsUseCase
 from research_bot.application.use_cases.collect_historical_minute_bars import (
     CollectHistoricalMinuteBarsUseCase,
 )
-from research_bot.application.use_cases.collect_session_reference import (
-    CollectSessionReferenceUseCase,
+from research_bot.application.use_cases.collect_market_open_snapshot import (
+    CollectMarketOpenSnapshotUseCase,
 )
 from research_bot.application.use_cases.scan_orb_breakouts import ScanOrbBreakoutsUseCase
 from research_bot.bootstrap.settings import Settings, get_settings
 from research_bot.infrastructure.providers.kis_client import KisClient
 from research_bot.infrastructure.providers.kis_market_data_provider import (
     KisMarketDataProvider,
+)
+from research_bot.infrastructure.providers.kis_universe_resolver import (
+    KisUniverseResolver,
 )
 from research_bot.infrastructure.providers.mock_market_data_provider import (
     MockMarketDataProvider,
@@ -45,9 +46,16 @@ class Container:
         return KisClient(self.settings)
 
     @cached_property
+    def kis_universe_resolver(self) -> KisUniverseResolver:
+        return KisUniverseResolver(
+            data_dir=self.settings.data_dir,
+            markets=self.settings.kis_universe_market_list,
+        )
+
+    @cached_property
     def market_data_provider(self):
         if self.settings.market_data_provider.lower() == "kis":
-            return KisMarketDataProvider(self.kis_client)
+            return KisMarketDataProvider(self.kis_client, self.kis_universe_resolver)
         return MockMarketDataProvider(self.settings.default_symbol_list)
 
     @cached_property
@@ -55,8 +63,6 @@ class Container:
         return DuckDbMarketDataRepository(
             connection_factory=self.connection_factory,
             schema_manager=self.schema_manager,
-            market_open=self.settings.market_open,
-            opening_cutoff=self.settings.opening_cutoff,
         )
 
     @cached_property
@@ -71,22 +77,13 @@ class Container:
         return CollectHistoricalMinuteBarsUseCase(
             provider=self.market_data_provider,
             repository=self.market_data_repository,
-            default_symbols=self.settings.default_symbol_list,
         )
 
     @cached_property
-    def collect_session_reference_use_case(self) -> CollectSessionReferenceUseCase:
-        return CollectSessionReferenceUseCase(
+    def collect_market_open_snapshot_use_case(self) -> CollectMarketOpenSnapshotUseCase:
+        return CollectMarketOpenSnapshotUseCase(
             provider=self.market_data_provider,
             repository=self.market_data_repository,
-            default_symbols=self.settings.default_symbol_list,
-        )
-
-    @cached_property
-    def build_opening_bars_use_case(self) -> BuildOpeningBarsUseCase:
-        return BuildOpeningBarsUseCase(
-            repository=self.market_data_repository,
-            default_symbols=self.settings.default_symbol_list,
         )
 
     @cached_property

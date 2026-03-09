@@ -1,15 +1,17 @@
 import axios from "axios";
 
 import type {
-  BuildOpeningBarsResponse,
+  CollectAllMarketDataResponse,
   CollectResponse,
   DateRangePayload,
+  MarketDataDailySummaryRow,
+  MarketDataSymbolSummaryRow,
   MarketDataOverview,
+  MinuteBarRow,
   OrbScanRequest,
   OrbScanRunListItem,
   OrbScanRunResponse,
-  ProviderSession,
-  SeedMockDataResponse
+  ProviderSession
 } from "./types";
 
 const apiClient = axios.create({
@@ -19,6 +21,47 @@ const apiClient = axios.create({
 
 export async function getMarketDataOverview(): Promise<MarketDataOverview> {
   const response = await apiClient.get<MarketDataOverview>("/market-data/overview");
+  return response.data;
+}
+
+export async function getMarketDataDailyGrid(
+  payload: DateRangePayload
+): Promise<MarketDataDailySummaryRow[]> {
+  const response = await apiClient.get<MarketDataDailySummaryRow[]>("/market-data/daily-grid", {
+    params: {
+      date_from: payload.date_from,
+      date_to: payload.date_to,
+      symbols: payload.symbols.join(",")
+    }
+  });
+  return response.data;
+}
+
+export async function getMarketDataDaySymbols(params: {
+  trade_date: string;
+  symbols: string[];
+}): Promise<MarketDataSymbolSummaryRow[]> {
+  const response = await apiClient.get<MarketDataSymbolSummaryRow[]>("/market-data/day-symbols", {
+    params: {
+      trade_date: params.trade_date,
+      symbols: params.symbols.join(",")
+    }
+  });
+  return response.data;
+}
+
+export async function getMarketDataMinuteBars(params: {
+  trade_date: string;
+  symbol: string;
+}): Promise<MinuteBarRow[]> {
+  const response = await apiClient.get<MinuteBarRow[]>(
+    `/market-data/day-symbols/${params.symbol}/minute-bars`,
+    {
+      params: {
+        trade_date: params.trade_date
+      }
+    }
+  );
   return response.data;
 }
 
@@ -32,8 +75,13 @@ export async function refreshProviderSession(): Promise<ProviderSession> {
   return response.data;
 }
 
-export async function seedMockData(payload: DateRangePayload): Promise<SeedMockDataResponse> {
-  const response = await apiClient.post<SeedMockDataResponse>("/market-data/mock/seed", payload);
+export async function collectAllMarketData(
+  payload: DateRangePayload
+): Promise<CollectAllMarketDataResponse> {
+  const response = await apiClient.post<CollectAllMarketDataResponse>(
+    "/market-data/full-fetch",
+    payload
+  );
   return response.data;
 }
 
@@ -47,21 +95,11 @@ export async function collectHistoricalMinuteBars(
   return response.data;
 }
 
-export async function collectSessionReferences(
+export async function collectMarketOpenSnapshots(
   payload: DateRangePayload
 ): Promise<CollectResponse> {
   const response = await apiClient.post<CollectResponse>(
-    "/market-data/session-references",
-    payload
-  );
-  return response.data;
-}
-
-export async function buildOpeningBars(
-  payload: DateRangePayload
-): Promise<BuildOpeningBarsResponse> {
-  const response = await apiClient.post<BuildOpeningBarsResponse>(
-    "/market-data/opening-bars/build",
+    "/market-data/market-open-snapshots",
     payload
   );
   return response.data;

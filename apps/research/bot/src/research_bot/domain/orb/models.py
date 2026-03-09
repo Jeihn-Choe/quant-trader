@@ -22,9 +22,10 @@ class BreakoutEvent:
 @dataclass(frozen=True)
 class OrbScanRecord:
     symbol: str
+    symbol_name: str | None
     trade_date: date
     prev_close: float | None
-    session_open: float | None
+    market_open_price: float | None
     gap_pct: float | None
     gap_up: bool
     orb_window_minutes: int

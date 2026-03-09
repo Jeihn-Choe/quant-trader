@@ -7,6 +7,7 @@ from datetime import date, datetime
 @dataclass(frozen=True)
 class MinuteBar:
     symbol: str
+    symbol_name: str | None
     trade_date: date
     minute_ts: datetime
     open: float
@@ -17,9 +18,10 @@ class MinuteBar:
 
 
 @dataclass(frozen=True)
-class SessionReference:
+class MarketOpenSnapshot:
     symbol: str
+    symbol_name: str | None
     trade_date: date
     prev_close: float
-    session_open: float
+    market_open_price: float
     gap_pct: float

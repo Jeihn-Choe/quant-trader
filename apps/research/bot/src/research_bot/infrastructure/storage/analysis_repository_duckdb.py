@@ -51,9 +51,10 @@ class DuckDbAnalysisRepository:
                 (
                     run_id,
                     row.symbol,
+                    row.symbol_name,
                     row.trade_date,
                     row.prev_close,
-                    row.session_open,
+                    row.market_open_price,
                     row.gap_pct,
                     row.gap_up,
                     row.orb_window_minutes,
@@ -72,10 +73,10 @@ class DuckDbAnalysisRepository:
                 connection.executemany(
                     """
                     INSERT INTO analysis_results
-                    (run_id, symbol, trade_date, prev_close, session_open, gap_pct, gap_up,
+                    (run_id, symbol, symbol_name, trade_date, prev_close, market_open_price, gap_pct, gap_up,
                      orb_window_minutes, orb_high, orb_low, breakout, first_breakout_time,
                      first_breakout_price, breakout_excess, cutoff_price, cutoff_above_orb_high)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     payload,
                 )
@@ -118,7 +119,7 @@ class DuckDbAnalysisRepository:
         with self.connection_factory.connect() as connection:
             rows = connection.execute(
                 """
-                SELECT symbol, trade_date, prev_close, session_open, gap_pct, gap_up,
+                SELECT symbol, symbol_name, trade_date, prev_close, market_open_price, gap_pct, gap_up,
                        orb_window_minutes, orb_high, orb_low, breakout, first_breakout_time,
                        first_breakout_price, breakout_excess, cutoff_price, cutoff_above_orb_high
                 FROM analysis_results
@@ -130,20 +131,21 @@ class DuckDbAnalysisRepository:
         return [
             OrbScanRecord(
                 symbol=row[0],
-                trade_date=row[1],
-                prev_close=row[2],
-                session_open=row[3],
-                gap_pct=row[4],
-                gap_up=bool(row[5]),
-                orb_window_minutes=row[6],
-                orb_high=row[7],
-                orb_low=row[8],
-                breakout=bool(row[9]),
-                first_breakout_time=row[10],
-                first_breakout_price=row[11],
-                breakout_excess=row[12],
-                cutoff_price=row[13],
-                cutoff_above_orb_high=row[14],
+                symbol_name=row[1],
+                trade_date=row[2],
+                prev_close=row[3],
+                market_open_price=row[4],
+                gap_pct=row[5],
+                gap_up=bool(row[6]),
+                orb_window_minutes=row[7],
+                orb_high=row[8],
+                orb_low=row[9],
+                breakout=bool(row[10]),
+                first_breakout_time=row[11],
+                first_breakout_price=row[12],
+                breakout_excess=row[13],
+                cutoff_price=row[14],
+                cutoff_above_orb_high=row[15],
             )
             for row in rows
         ]

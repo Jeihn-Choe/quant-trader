@@ -93,9 +93,10 @@ def _map_run_response(result) -> OrbScanRunResponse:
 def _map_result_row(row) -> OrbScanResultResponse:
     return OrbScanResultResponse(
         symbol=row.symbol,
+        symbol_name=row.symbol_name,
         trade_date=row.trade_date.isoformat(),
         prev_close=row.prev_close,
-        session_open=row.session_open,
+        market_open_price=row.market_open_price,
         gap_pct=row.gap_pct,
         gap_up=row.gap_up,
         orb_window_minutes=row.orb_window_minutes,

@@ -1,12 +1,9 @@
 export interface MarketDataOverview {
   historical_bar_count: number;
-  opening_bar_count: number;
-  session_reference_count: number;
+  market_open_snapshot_count: number;
   symbol_count: number;
   historical_date_min: string | null;
   historical_date_max: string | null;
-  opening_date_min: string | null;
-  opening_date_max: string | null;
   available_symbols: string[];
 }
 
@@ -33,25 +30,52 @@ export interface CollectResponse {
   date_from: string;
   date_to: string;
   rows_written: number;
+  skipped: boolean;
 }
 
-export interface BuildOpeningBarsResponse {
-  message: string;
-  symbols: string[];
-  date_from: string;
-  date_to: string;
-  rows_written: number;
+export interface MarketDataDailySummaryRow {
+  trade_date: string;
+  symbol_count: number;
+  historical_bar_count: number;
+  market_open_snapshot_count: number;
+  preview_symbols: string[];
 }
 
-export interface SeedMockDataResponse {
+export interface MarketDataSymbolSummaryRow {
+  trade_date: string;
+  symbol: string;
+  symbol_name: string | null;
+  minute_bar_count: number;
+  session_open: number | null;
+  session_high: number | null;
+  session_low: number | null;
+  session_close: number | null;
+  total_volume: number | null;
+  gap_pct: number | null;
+}
+
+export interface MinuteBarRow {
+  symbol: string;
+  symbol_name: string | null;
+  trade_date: string;
+  minute_ts: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface CollectAllMarketDataResponse {
   message: string;
   provider: string;
   symbols: string[];
   date_from: string;
   date_to: string;
   historical_minute_rows: number;
-  session_reference_rows: number;
-  opening_bar_rows: number;
+  market_open_snapshot_rows: number;
+  historical_minute_skipped: boolean;
+  market_open_snapshot_skipped: boolean;
 }
 
 export interface OrbScanRequest {
@@ -74,9 +98,10 @@ export interface OrbScanSummary {
 
 export interface OrbScanResultRow {
   symbol: string;
+  symbol_name: string | null;
   trade_date: string;
   prev_close: number | null;
-  session_open: number | null;
+  market_open_price: number | null;
   gap_pct: number | null;
   gap_up: boolean;
   orb_window_minutes: number;
