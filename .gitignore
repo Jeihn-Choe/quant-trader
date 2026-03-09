@@ -1,0 +1,30 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Project runtime data
+data/research/*.duckdb
+data/research/*.wal
+apps/research/bot/.env

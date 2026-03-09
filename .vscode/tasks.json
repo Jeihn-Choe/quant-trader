@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "research-web-ui: dev",
+      "type": "npm",
+      "script": "dev",
+      "path": "apps/research/web_ui",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "."
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "ready in|Local:"
+        }
+      }
+    }
+  ]
+}

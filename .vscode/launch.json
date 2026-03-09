@@ -1,0 +1,47 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Research Bot API",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "cwd": "${workspaceFolder}/apps/research/bot",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/apps/research/bot/src"
+      },
+      "args": [
+        "research_bot.main:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000"
+      ],
+      "jinja": true,
+      "justMyCode": true
+    },
+    {
+      "name": "Research Web UI Dev Server",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}/apps/research/web_ui"
+    },
+    {
+      "name": "Research Web UI Browser",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://127.0.0.1:5173",
+      "webRoot": "${workspaceFolder}/apps/research/web_ui/src"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Research Full Stack",
+      "configurations": [
+        "Research Bot API",
+        "Research Web UI Dev Server"
+      ]
+    }
+  ]
+}

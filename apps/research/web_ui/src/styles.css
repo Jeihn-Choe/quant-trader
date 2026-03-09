@@ -1,0 +1,370 @@
+:root {
+  font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+  color: #f5efe5;
+  background:
+    radial-gradient(circle at top left, rgba(240, 140, 100, 0.22), transparent 28%),
+    radial-gradient(circle at top right, rgba(69, 156, 163, 0.18), transparent 24%),
+    linear-gradient(160deg, #151818 0%, #1f2627 48%, #101312 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --surface: rgba(20, 24, 24, 0.78);
+  --surface-strong: rgba(12, 15, 15, 0.92);
+  --border: rgba(255, 255, 255, 0.08);
+  --text-muted: #c9c0b0;
+  --amber: #f0a15b;
+  --teal: #5cc4c8;
+  --coral: #f08c64;
+  --positive: #91d28c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.page-shell {
+  width: min(1440px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.page-hero {
+  padding: 24px 0 32px;
+}
+
+.hero-kicker {
+  margin: 0 0 8px;
+  color: var(--amber);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.page-hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 0.95;
+}
+
+.hero-copy {
+  max-width: 760px;
+  margin: 16px 0 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+}
+
+.main-column,
+.side-column {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+.section-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+.section-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+}
+
+.accent-amber::before {
+  background: linear-gradient(90deg, rgba(240, 161, 91, 0), rgba(240, 161, 91, 0.85), rgba(240, 161, 91, 0));
+}
+
+.accent-teal::before {
+  background: linear-gradient(90deg, rgba(92, 196, 200, 0), rgba(92, 196, 200, 0.85), rgba(92, 196, 200, 0));
+}
+
+.accent-coral::before {
+  background: linear-gradient(90deg, rgba(240, 140, 100, 0), rgba(240, 140, 100, 0.85), rgba(240, 140, 100, 0));
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 24px 0;
+}
+
+.section-eyebrow {
+  margin: 0 0 8px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.section-caption {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.section-body {
+  padding: 24px;
+}
+
+.panel-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.form-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+}
+
+label span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f5efe5;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.field-wide {
+  grid-column: 1 / -1;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5efe5;
+  padding: 11px 16px;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.primary-button {
+  border-color: rgba(240, 161, 91, 0.35);
+  background: linear-gradient(135deg, rgba(240, 161, 91, 0.24), rgba(240, 140, 100, 0.2));
+}
+
+.status-line {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stat-badge {
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  display: grid;
+  gap: 6px;
+}
+
+.stat-badge span {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.stat-badge strong {
+  font-size: 1.2rem;
+}
+
+.tone-positive strong {
+  color: var(--positive);
+}
+
+.tone-warning strong {
+  color: var(--amber);
+}
+
+.overview-notes {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+  color: var(--text-muted);
+}
+
+.overview-notes p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.provider-status-card {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.chart-wrap {
+  margin-top: 20px;
+  height: 240px;
+}
+
+.table-wrap {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 980px;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.run-list {
+  display: grid;
+  gap: 12px;
+}
+
+.run-item {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.run-item.is-active {
+  border-color: rgba(92, 196, 200, 0.4);
+  background: rgba(92, 196, 200, 0.08);
+}
+
+.run-item span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1100px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .side-column {
+    order: -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    width: min(100vw - 20px, 100%);
+    padding-top: 20px;
+  }
+
+  .section-header,
+  .section-body {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .field-grid,
+  .badge-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-row {
+    flex-direction: column;
+  }
+}
