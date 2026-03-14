@@ -1,0 +1,6 @@
+@QuantTrader.Researcher_HostAddress = http://localhost:5210
+
+GET {{QuantTrader.Researcher_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

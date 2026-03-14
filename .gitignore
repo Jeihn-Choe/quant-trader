@@ -27,5 +27,6 @@ dist/
 # Project runtime data
 data/research/*.duckdb
 data/research/*.wal
+data/research/kis_token_cache.json
 data/research/masters/
 apps/research/bot/.env

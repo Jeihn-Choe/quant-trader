@@ -5,7 +5,7 @@
       "label": "research-web-ui: dev",
       "type": "npm",
       "script": "dev",
-      "path": "apps/research/web_ui",
+      "path": "src/QuantTrader.WebUI",
       "isBackground": true,
       "problemMatcher": {
         "owner": "custom",

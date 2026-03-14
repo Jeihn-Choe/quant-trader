@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "research-bot"
+version = "0.1.0"
+description = "QuantTrader research bot with FastAPI and DuckDB."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "duckdb>=1.4.4",
+  "fastapi>=0.135.1",
+  "httpx>=0.28.1",
+  "pydantic-settings>=2.13.1",
+  "psycopg[binary]>=3.2.12",
+  "uvicorn[standard]>=0.41.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

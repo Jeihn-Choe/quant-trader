@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/QuantTrader.Contracts/QuantTrader.Contracts.csproj" />
+    <Project Path="src/QuantTrader.Researcher/QuantTrader.Researcher.csproj" />
+    <Project Path="src/QuantTrader.Strategies/QuantTrader.Strategies.csproj" />
+    <Project Path="src/QuantTrader.Trader/QuantTrader.Trader.csproj" />
+  </Folder>
+  <Folder Name="/docs/">
+    <Project Path="docs/QuantTrader.Docs.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+</Solution>

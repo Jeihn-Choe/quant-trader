@@ -1,0 +1,276 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\projects\\QuantTrader\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|e:\\projects\\quanttrader\\src\\quanttrader.strategies\\orb\\orbstrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|solutionrelative:src\\quanttrader.strategies\\orb\\orbstrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|e:\\projects\\quanttrader\\src\\quanttrader.strategies\\abstractions\\istrategyfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|solutionrelative:src\\quanttrader.strategies\\abstractions\\istrategyfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|e:\\projects\\quanttrader\\src\\quanttrader.strategies\\abstractions\\istrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|solutionrelative:src\\quanttrader.strategies\\abstractions\\istrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|e:\\projects\\quanttrader\\src\\quanttrader.strategies\\abstractions\\istrategyparameter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|solutionrelative:src\\quanttrader.strategies\\abstractions\\istrategyparameter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|e:\\projects\\quanttrader\\src\\quanttrader.strategies\\abstractions\\iexitrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|solutionrelative:src\\quanttrader.strategies\\abstractions\\iexitrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|e:\\projects\\quanttrader\\src\\quanttrader.strategies\\abstractions\\ientryrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95A818FD-361F-36D9-A5D8-5F9F3CE0892F}|src\\QuantTrader.Strategies\\QuantTrader.Strategies.csproj|solutionrelative:src\\quanttrader.strategies\\abstractions\\ientryrule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|e:\\projects\\quanttrader\\src\\quanttrader.contracts\\interfaces\\imarketdataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|solutionrelative:src\\quanttrader.contracts\\interfaces\\imarketdataprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|e:\\projects\\quanttrader\\src\\quanttrader.contracts\\data\\market\\marketopensnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|solutionrelative:src\\quanttrader.contracts\\data\\market\\marketopensnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|e:\\projects\\quanttrader\\src\\quanttrader.contracts\\common\\enums\\securitytype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|solutionrelative:src\\quanttrader.contracts\\common\\enums\\securitytype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|e:\\projects\\quanttrader\\src\\quanttrader.contracts\\common\\enums\\orderside.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|solutionrelative:src\\quanttrader.contracts\\common\\enums\\orderside.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|e:\\projects\\quanttrader\\src\\quanttrader.contracts\\data\\market\\minutebar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF2710B3-1702-A7E5-6813-85693BB2240D}|src\\QuantTrader.Contracts\\QuantTrader.Contracts.csproj|solutionrelative:src\\quanttrader.contracts\\data\\market\\minutebar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E59E8CC7-7B26-EE5B-0A97-DF61A5459FBF}|docs\\QuantTrader.Docs.csproj|e:\\projects\\quanttrader\\docs\\research\\01.orb\uC804\uB7B5\uC218\uB9BD.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{E59E8CC7-7B26-EE5B-0A97-DF61A5459FBF}|docs\\QuantTrader.Docs.csproj|solutionrelative:docs\\research\\01.orb\uC804\uB7B5\uC218\uB9BD.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 13,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:5:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:135:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:136:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrbStrategy.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\ORB\\OrbStrategy.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Strategies\\ORB\\OrbStrategy.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\ORB\\OrbStrategy.cs",
+              "RelativeToolTip": "src\\QuantTrader.Strategies\\ORB\\OrbStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:59:08.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IStrategyParameter.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IStrategyParameter.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Strategies\\Abstractions\\IStrategyParameter.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IStrategyParameter.cs",
+              "RelativeToolTip": "src\\QuantTrader.Strategies\\Abstractions\\IStrategyParameter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:55:25.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IStrategyFilter.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IStrategyFilter.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Strategies\\Abstractions\\IStrategyFilter.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IStrategyFilter.cs",
+              "RelativeToolTip": "src\\QuantTrader.Strategies\\Abstractions\\IStrategyFilter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:55:21.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IStrategy.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IStrategy.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Strategies\\Abstractions\\IStrategy.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IStrategy.cs",
+              "RelativeToolTip": "src\\QuantTrader.Strategies\\Abstractions\\IStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:55:12.102Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IExitRule.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IExitRule.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Strategies\\Abstractions\\IExitRule.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IExitRule.cs",
+              "RelativeToolTip": "src\\QuantTrader.Strategies\\Abstractions\\IExitRule.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:55:00.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IEntryRule.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IEntryRule.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Strategies\\Abstractions\\IEntryRule.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Strategies\\Abstractions\\IEntryRule.cs",
+              "RelativeToolTip": "src\\QuantTrader.Strategies\\Abstractions\\IEntryRule.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:54:50.62Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MarketOpenSnapshot.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Data\\Market\\MarketOpenSnapshot.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Contracts\\Data\\Market\\MarketOpenSnapshot.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Data\\Market\\MarketOpenSnapshot.cs",
+              "RelativeToolTip": "src\\QuantTrader.Contracts\\Data\\Market\\MarketOpenSnapshot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:37:33.083Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SecurityType.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Common\\Enums\\SecurityType.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Contracts\\Common\\Enums\\SecurityType.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Common\\Enums\\SecurityType.cs",
+              "RelativeToolTip": "src\\QuantTrader.Contracts\\Common\\Enums\\SecurityType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:34:21.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "OrderSide.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Common\\Enums\\OrderSide.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Contracts\\Common\\Enums\\OrderSide.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Common\\Enums\\OrderSide.cs",
+              "RelativeToolTip": "src\\QuantTrader.Contracts\\Common\\Enums\\OrderSide.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:34:20.161Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IMarketDataProvider.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Interfaces\\IMarketDataProvider.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Contracts\\Interfaces\\IMarketDataProvider.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Interfaces\\IMarketDataProvider.cs",
+              "RelativeToolTip": "src\\QuantTrader.Contracts\\Interfaces\\IMarketDataProvider.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:33:17.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MinuteBar.cs",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Data\\Market\\MinuteBar.cs",
+              "RelativeDocumentMoniker": "src\\QuantTrader.Contracts\\Data\\Market\\MinuteBar.cs",
+              "ToolTip": "E:\\projects\\QuantTrader\\src\\QuantTrader.Contracts\\Data\\Market\\MinuteBar.cs",
+              "RelativeToolTip": "src\\QuantTrader.Contracts\\Data\\Market\\MinuteBar.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T00:32:39.709Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "01.ORB\uC804\uB7B5\uC218\uB9BD.md",
+              "DocumentMoniker": "E:\\projects\\QuantTrader\\docs\\research\\01.ORB\uC804\uB7B5\uC218\uB9BD.md",
+              "RelativeDocumentMoniker": "docs\\research\\01.ORB\uC804\uB7B5\uC218\uB9BD.md",
+              "ToolTip": "E:\\projects\\QuantTrader\\docs\\research\\01.ORB\uC804\uB7B5\uC218\uB9BD.md",
+              "RelativeToolTip": "docs\\research\\01.ORB\uC804\uB7B5\uC218\uB9BD.md",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACUAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-03-13T23:41:08.392Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

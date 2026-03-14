@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <!-- 이 프로젝트는 빌드하거나 결과물을 만들지 않음 -->
+    <IsPackable>false</IsPackable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- docs 폴더 내의 모든 파일을 표시함 (빌드 대상은 아님) -->
+    <None Include="**\*" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
+    <None Remove="QuantTrader.Docs.csproj" />
+  </ItemGroup>
+</Project>

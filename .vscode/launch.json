@@ -6,16 +6,17 @@
       "type": "debugpy",
       "request": "launch",
       "module": "uvicorn",
-      "cwd": "${workspaceFolder}/apps/research/bot",
+      "cwd": "${workspaceFolder}/src/QuantTrader.Collector",
       "env": {
-        "PYTHONPATH": "${workspaceFolder}/apps/research/bot/src"
+        "PYTHONPATH": "${workspaceFolder}/src/QuantTrader.Collector/src"
       },
       "args": [
         "research_bot.main:app",
         "--host",
         "127.0.0.1",
         "--port",
-        "8000"
+        "8000",
+        "--no-access-log"
       ],
       "jinja": true,
       "justMyCode": true
@@ -25,14 +26,14 @@
       "type": "node-terminal",
       "request": "launch",
       "command": "npm run dev",
-      "cwd": "${workspaceFolder}/apps/research/web_ui"
+      "cwd": "${workspaceFolder}/src/QuantTrader.WebUI"
     },
     {
       "name": "Research Web UI Browser",
       "type": "pwa-chrome",
       "request": "launch",
       "url": "http://127.0.0.1:5173",
-      "webRoot": "${workspaceFolder}/apps/research/web_ui/src"
+      "webRoot": "${workspaceFolder}/src/QuantTrader.WebUI/src"
     }
   ],
   "compounds": [
